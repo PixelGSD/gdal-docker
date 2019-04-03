@@ -14,7 +14,14 @@ MAINTAINER Homme Zwaagstra <hrz@geodata.soton.ac.uk>
 
 # Install the application.
 ADD . /usr/local/src/gdal-docker/
-RUN /usr/local/src/gdal-docker/build.sh
+RUN apt-get update -y && \
+    apt-get install -y make && \
+    make -C /usr/local/src/gdal-docker install clean && \
+    apt-get purge -y make && \
+    apt-get install -y dans-gdal-scripts && \
+    apt-get install -y imagemagick
+
+
 
 # Externally accessible data is by default put in /data
 WORKDIR /data
@@ -22,3 +29,5 @@ VOLUME ["/data"]
 
 # Output version and capabilities by default.
 CMD gdalinfo --version && gdalinfo --formats && ogrinfo --formats
+
+
