@@ -14,10 +14,6 @@ MAINTAINER Homme Zwaagstra <hrz@geodata.soton.ac.uk>
 
 # Install the application.
 ADD . /usr/local/src/gdal-docker/
-RUN /usr/local/src/gdal-docker/build.sh
-
-# Install the application.
-ADD . /usr/local/src/gdal-docker/
 RUN apt-get update -y && \
     apt-get install -y make && \
     make -C /usr/local/src/gdal-docker install clean && \
